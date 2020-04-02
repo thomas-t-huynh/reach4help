@@ -84,6 +84,7 @@ const Header = (props: Props) => {
 };
 
 export default styled(Header)`
+  background: #fff;
   border-bottom: 1px solid ${p => p.theme.colors.grayLight2};
 
   .row {
@@ -153,12 +154,15 @@ export default styled(Header)`
   }
 
   ${SMALL_DEVICES} {
+    z-index: 500;
+    position: fixed;
+    top: 0;
+    bottom: 60px;
+    overflow-y: auto;
+
     .row {
       flex-direction: column;
     }
 
-    .tools {
-      display: none;
-    }
   }
 `;

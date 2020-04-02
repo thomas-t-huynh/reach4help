@@ -169,17 +169,7 @@ class App extends React.Component<Props, State> {
             updateResults={this.updateResults}
           />
         </main>
-        <div className="mobile-message">
-          <p>
-            Unfortunately, this map has not been updated to work on devices with
-            small screens.
-          </p>
-          <p>
-            We are currently working on it, and should have an update out in the
-            coming days. Until then, please open page on a different device.
-          </p>
-        </div>
-        {!fullScreen && <Footer />}
+        {!fullScreen && <Footer className="footer" />}
         <AddInstructions
           open={addInstructionsOpen}
           setAddInstructionsOpen={this.setAddInstructionsOpen}
@@ -280,33 +270,31 @@ export default styled(App)`
     font-weight: 400;
   }
 
-  .mobile-message {
-    display: none;
-    padding: ${p => p.theme.spacingPx / 2}px;
-    font-size: 1.5rem;
-
-    p {
-      margin: 0;
-      padding: ${p => p.theme.spacingPx / 2}px;
-    }
-  }
-
   ${SMALL_DEVICES} {
-    position: relative;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
     > main {
+      width: 100%;
+      height: 100%;
+
+      > .map-area {
+        margin-right: 0;
+
+        > .search {
+          right: 10px;
+          max-width: initial;
+        }
+      }
+      > .results {
+        display: none;
+      }
+    }
+    .footer {
       display: none;
-    }
-    .mobile-message {
-      display: block;
-    }
-  }
-
-  .${CLS_SCREEN_LG_ONLY} {
-    display: none;
-
-    ${LARGE_DEVICES} {
-      display: initial;
     }
   }
 `;

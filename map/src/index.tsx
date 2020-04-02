@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createGlobalStyle, THEME, ThemeProvider } from './styling';
+import { createGlobalStyle, THEME, ThemeProvider, CLS_SCREEN_LG_ONLY, LARGE_DEVICES } from './styling';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -18,6 +18,16 @@ const GlobalStyle = createGlobalStyle`
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
+  }
+
+
+
+  .${CLS_SCREEN_LG_ONLY} {
+    display: none;
+
+    ${LARGE_DEVICES} {
+      display: initial;
+    }
   }
 `;
 

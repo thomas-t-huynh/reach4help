@@ -5,7 +5,7 @@ import { Filter, SERVICES } from 'src/data';
 import { button, iconButton } from 'src/styling/mixins';
 
 import { MarkerInfo, MARKERS } from '../data/markers';
-import styled from '../styling';
+import styled, { SMALL_DEVICES } from '../styling';
 import {
   createGoogleMap,
   generateSortBasedOnMapCenter,
@@ -451,6 +451,14 @@ export default styled(MapComponent)`
 
   > .map {
     height: 100%;
+
+    &:after {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 100%;
+      box-shadow: inset rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    }
   }
 
   > button {
@@ -502,6 +510,12 @@ export default styled(MapComponent)`
         width: 20px;
         height: 20px;
       }
+    }
+  }
+
+  ${SMALL_DEVICES} {
+    > .results-tab {
+      display: none;
     }
   }
 `;

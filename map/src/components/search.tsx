@@ -26,7 +26,7 @@ export default styled(Search)`
   input {
     color: #333;
     box-sizing: border-box;
-    width: 500px;
+    width: 600px;
     max-width: 100%;
     flex-grow: 1;
     background: #fff;
