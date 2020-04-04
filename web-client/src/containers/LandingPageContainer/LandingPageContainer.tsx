@@ -1,26 +1,27 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { getUserGeolocationAction } from 'src/ducks/user/actions';
 import { AppState } from 'src/store';
 
+import LandingPage from '../../components/LandingPage/LandingPage';
 import { LandingPageProps } from './constants';
 
-const LoginContainer: React.FC<LandingPageProps> = () => {
+const LandingPageContainer: React.FC<LandingPageProps> = () => {
   const dispatch = useDispatch();
-  const coords = useSelector((state: AppState) => state.user.geolocation);
-  const history = useHistory();
+  const coords = useSelector((state: AppState) => state.user.coords);
 
-  const handleLoginFacebook = () => {
+  const handleGetCoords = () => {
+    alert('getting coordinates');
     dispatch(getUserGeolocationAction());
   };
 
   return (
     <>
-      <LandingPage />
+      <LandingPage onGetCoords={handleGetCoords} />
     </>
   );
 };
 
-LoginContainer.propTypes = {};
+LandingPageContainer.propTypes = {};
 
-export default LoginContainer;
+export default LandingPageContainer;

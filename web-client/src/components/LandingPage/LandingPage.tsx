@@ -1,10 +1,9 @@
-import { Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import logo from '../../assets/logo.png';
-import FacebookLoginButton from '../FacebookLoginButton/FacebookLoginButton';
 import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
 const { Title, Text } = Typography;
@@ -31,11 +30,13 @@ const Info = styled(Text)`
   text-align: center;
 `;
 
-interface LoginProps {
-  onLoginFacebook: Function;
+interface LandingPageProps {
+  onGetCoords: Function;
 }
 
-const Login: React.FC<LoginProps> = (): React.ReactElement => {
+const LandingPage: React.FC<LandingPageProps> = ({
+  onGetCoords,
+}): React.ReactElement => {
   const { t } = useTranslation();
 
   return (
@@ -44,8 +45,11 @@ const Login: React.FC<LoginProps> = (): React.ReactElement => {
       <StyledTitle>{t('login.title')}</StyledTitle>
       <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
       <Info>{t('login.info')}</Info>
+      <Button type="primary" onClick={() => onGetCoords()}>
+        {t('landingpage.buttonDetectGeo')}
+      </Button>
     </StyledIntro>
   );
 };
 
-export default Login;
+export default LandingPage;
