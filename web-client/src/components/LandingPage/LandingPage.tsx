@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
+import geoarrow from '../../assets/geoarrow.svg';
 import logo from '../../assets/logo.png';
 import TitleWithAddon from '../TitleWithAddon/TitleWithAddon';
 
@@ -65,7 +66,17 @@ const LandingPage: React.FC<LandingPageProps> = ({
           ))}
       </Info>
       {!coordsExist && (
-        <Button type="primary" onClick={() => onGetCoords()}>
+        <Button
+          type="primary"
+          onClick={() => onGetCoords()}
+          icon={
+            <img
+              src={geoarrow}
+              style={{ height: 16, width: 16, marginRight: 10 }}
+              alt="geolocation arrow"
+            />
+          }
+        >
           {t('landingpage.buttonDetectGeo')}
         </Button>
       )}

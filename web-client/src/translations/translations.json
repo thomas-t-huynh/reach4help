@@ -7,14 +7,12 @@
         "title": "Reach4Help",
         "sub_title": "Welcome",
         "info": "In order to verify if our system is avialable in your area, please click the button below to allow us to obtain your geographic location.",
-        "sub_title_ng": "No Geolocation Available",
-        "info_ng": "We're sorry but without Geolocation we cannot connect you to ",
         "buttonDetectGeo": "Obtain my location"
       },
-      "landingpageNG": {
+      "landingpage_ng": {
         "title": "Reach4Help",
         "sub_title": "No Geolocation Available",
-        "info": "We're sorry but without Geolocation we cannot connect you to "
+        "info": "We're sorry but your browser doesn't seem to support geolocation."
       },
       "login": {
         "title": "Reach4Help",
@@ -44,6 +42,11 @@
         "sub_title": "Bem-vindo(a)",
         "info": "De modo a verificar se o nosso sistema já se encontra disponível na sua área, por favor faça click no botão abiaxo para nos permitir obter a sua localização geográfica.",
         "buttonDetectGeo": "Obter a minha localização"
+      },
+      "landingpage_ng": {
+        "title": "Reach4Help",
+        "sub_title": "Geolocalização não disponível",
+        "info": "Pedimos desculpa mas o seu navegador parece não ter suporte para geolocalização."
       },
       "login": {
         "title": "Reach4Help",
