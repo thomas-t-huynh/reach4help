@@ -2,44 +2,90 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserGeolocationAction } from 'src/ducks/user/actions';
 import { AppState } from 'src/store';
+import styled from 'styled-components';
 
 import LandingPage from '../../components/LandingPage/LandingPage';
-import LandingPageNoGeo from '../../components/LandingPage/LandingPageNoGeo';
 import { LandingPageProps } from './constants';
+
+const Overlay = styled.div`
+  z-index: 10000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
 
 const LandingPageContainer: React.FC<LandingPageProps> = () => {
   const dispatch = useDispatch();
   let coords = useSelector((state: AppState) => state.user.coords);
 
-  const [geolocationAvailabe, setGeoAvailable] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [geolocationAvailabe, setGeoAvailable] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [geolocationAuthorized, setGeoAuthorized] = useState(false);
   const [coordsExist, setCoordsExist] = useState(false);
 
   const handleGetCoords = () => {
+    setIsLoading(true);
     if ('geolocation' in navigator) {
       setGeoAvailable(true);
 
       /* geolocation is available */
-      navigator.geolocation.getCurrentPosition(position => {
-        coords = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        setCoordsExist(true);
-        dispatch(setUserGeolocationAction(coords));
-      });
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          setIsLoading(false);
+          setGeoAuthorized(true);
+          coords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setCoordsExist(true);
+          dispatch(setUserGeolocationAction(coords));
+        },
+        GeolocationPositionError => {
+          setIsLoading(false);
+          if (GeolocationPositionError.code === 1) {
+            setGeoAuthorized(false);
+          }
+        },
+      );
     } else {
+      setGeoAvailable(false);
       /* geolocation IS NOT available */
-      // navigate user to other page
+      let countries = '';
+      setIsLoading(true);
+      fetch(`/assets/countries.min.json`)
+        .then(response => response.json())
+        .then(json => {
+          setIsLoading(false);
+          countries = json;
+        })
+        .catch(e => {
+          console.error('Error:', e);
+          setIsLoading(false);
+        });
     }
   };
 
   return (
     <>
-      <LandingPage
-        coordsExist={coordsExist}
-        coords={coords}
-        onGetCoords={handleGetCoords}
-      />
+      {isLoading && <Overlay id="overlay" />}
+      {(geolocationAvailabe === undefined || geolocationAvailabe === true) && (
+        <LandingPage
+          coordsExist={coordsExist}
+          coords={coords}
+          onGetCoords={handleGetCoords}
+        />
+      )}
+      {geolocationAuthorized === false && <div>Geolocation not authorized</div>}
+      {geolocationAvailabe === false && (
+        <div>
+          <p>User geolocation not available on this browser</p>
+        </div>
+      )}
     </>
   );
 };
