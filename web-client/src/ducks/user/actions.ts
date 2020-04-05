@@ -1,8 +1,10 @@
-import { GETGEOLOCATION } from './types';
+import { CoordsAction, SETGEOLOCATION } from './types';
 
-export const getUserGeolocationAction = () => (dispatch: Function) => {
+export const setUserGeolocationAction = (payload: CoordsAction) => (
+  dispatch: Function,
+) => {
   dispatch({
-    type: GETGEOLOCATION,
-    payload: {},
+    type: SETGEOLOCATION,
+    payload,
   });
 };

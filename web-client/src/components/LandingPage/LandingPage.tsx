@@ -26,15 +26,28 @@ const StyledTitle = styled(Title)`
 `;
 
 const Info = styled(Text)`
-  margin-top: 40px;
   text-align: center;
+  padding-top: 30px;
 `;
 
+// display: flex;
+// flex-direction: column;
+// align-items: center;
+// justify-content: center;
+interface Coords {
+  lat: number;
+  lng: number;
+}
+
 interface LandingPageProps {
+  coords: Coords;
+  coordsExist: boolean;
   onGetCoords: Function;
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({
+  coords,
+  coordsExist,
   onGetCoords,
 }): React.ReactElement => {
   const { t } = useTranslation();
@@ -42,12 +55,21 @@ const LandingPage: React.FC<LandingPageProps> = ({
   return (
     <StyledIntro>
       <Logo src={logo} alt="logo" />
-      <StyledTitle>{t('login.title')}</StyledTitle>
-      <TitleWithAddon level={2}>{t('login.sub_title')}</TitleWithAddon>
-      <Info>{t('login.info')}</Info>
-      <Button type="primary" onClick={() => onGetCoords()}>
-        {t('landingpage.buttonDetectGeo')}
-      </Button>
+      <StyledTitle>{t('landingpage.title')}</StyledTitle>
+      <TitleWithAddon level={2}>{t('landingpage.sub_title')}</TitleWithAddon>
+      <Info>
+        {t('landingpage.info')
+          .split('\n')
+          .map((item, key) => (
+            <p key={key}>{item}</p>
+          ))}
+      </Info>
+      {!coordsExist && (
+        <Button type="primary" onClick={() => onGetCoords()}>
+          {t('landingpage.buttonDetectGeo')}
+        </Button>
+      )}
+      {coordsExist && coords !== undefined && <p>{coords.lat}</p>}
     </StyledIntro>
   );
 };

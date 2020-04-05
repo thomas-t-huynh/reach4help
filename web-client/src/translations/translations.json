@@ -6,8 +6,15 @@
       "landingpage": {
         "title": "Reach4Help",
         "sub_title": "Welcome",
-        "info": "Our system is not yet globally available. \nBecause of this, we need to understand where you are located so we can validade if we have volunteers available in your region. \nPlease click below to allow us to obtain your geographica location.",
+        "info": "In order to verify if our system is avialable in your area, please click the button below to allow us to obtain your geographic location.",
+        "sub_title_ng": "No Geolocation Available",
+        "info_ng": "We're sorry but without Geolocation we cannot connect you to ",
         "buttonDetectGeo": "Obtain my location"
+      },
+      "landingpageNG": {
+        "title": "Reach4Help",
+        "sub_title": "No Geolocation Available",
+        "info": "We're sorry but without Geolocation we cannot connect you to "
       },
       "login": {
         "title": "Reach4Help",
@@ -35,7 +42,7 @@
       "landingpage": {
         "title": "Reach4Help",
         "sub_title": "Bem-vindo(a)",
-        "info": "O nosso sistema ainda não se encontra disponível globalmente. \nPor esta razão necessotamos de obter a sua localização para validar se temos voluntários disponíveis na sua região. \nPor favor, faça click abaixo para nos autorizar a obter a sua localização geográfica.",
+        "info": "De modo a verificar se o nosso sistema já se encontra disponível na sua área, por favor faça click no botão abiaxo para nos permitir obter a sua localização geográfica.",
         "buttonDetectGeo": "Obter a minha localização"
       },
       "login": {
