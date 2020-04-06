@@ -1,5 +1,7 @@
 import createReducer from 'src/store/utils/createReducer';
 
+import { SETGEOLOCATION } from './types';
+
 interface Coords {
   lat: number;
   lng: number;
@@ -15,7 +17,7 @@ const initialState: UserState = {
 
 export default createReducer<UserState>(
   {
-    USER_SET_GEO: (
+    [SETGEOLOCATION]: (
       state: UserState,
       { payload }: { payload: { coords: Coords } },
     ) => {

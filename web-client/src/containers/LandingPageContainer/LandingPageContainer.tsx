@@ -18,30 +18,19 @@ const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const IF = styled.iframe`
-  width: 10px;
-  height: 10px;
-
-  pointer-events: none;
-  boder: 1px solid red;
-`;
-
 const LandingPageContainer: React.FC<LandingPageProps> = () => {
   const dispatch = useDispatch();
-
-  const iframegeo = React.createRef();
-
-  let coords = useSelector((state: AppState) => state.user.coords);
-
   const [isLoading, setIsLoading] = useState(false);
-  const [showIFrame, setShowIFrame] = useState(false);
+  const [coordsExist, setCoordsExist] = useState(false);
+
   const [geolocationAvailabe, setGeoAvailable] = useState<boolean | undefined>(
     undefined,
   );
   const [geolocationAuthorized, setGeoAuthorized] = useState<
     undefined | boolean
   >(undefined);
-  const [coordsExist, setCoordsExist] = useState(false);
+
+  let coords = useSelector((state: AppState) => state.user.coords);
 
   // Test if browser has support for geolocation
   useEffect(() => {
@@ -49,66 +38,26 @@ const LandingPageContainer: React.FC<LandingPageProps> = () => {
     setGeoAvailable(geoTest);
   }, []);
 
-  const addEVT = (ref: any) => {
-    if (ref !== null) {
-      ref.contentWindow.addEventListener('message', (message: any) => {
-        // eslint-disable-next-line no-param-reassign
-        // message = JSON.parse(message.data);
-        console.log(message);
-        // if (message.type === 'success') {
-
-        // } else {
-        // }
-        // const message = JSON.parse(msg.data);
-        if (
-          typeof message.data !== 'undefined' &&
-          typeof message.data.geoMessage !== 'undefined' &&
-          message.data.geoMessage === true
-        ) {
-          setTimeout(() => {
-            try {
-              ref.contentWindow.removeEventListner('message');
-              setShowIFrame(false);
-              setIsLoading(false);
-            } catch (e) {
-              // do nothing
-              setShowIFrame(false);
-              setIsLoading(false);
-            }
-          }, 500);
-        }
-      });
-    }
-  };
-
   const handleGetCoords = () => {
     setIsLoading(true);
-    setShowIFrame(true);
-
-    // let ifr = document.createElement('iframe');
-    // ifr.style.opacity = '0';
-    // ifr.style.pointerEvents = 'none';
-    // ifr.src = `${window.location.origin}/dummygeo.html`;
 
     /* geolocation is available */
-    // navigator.geolocation.getCurrentPosition(
-    //   position => {
-    //     setIsLoading(false);
-    //     setGeoAuthorized(true);
-    //     coords = {
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.longitude,
-    //     };
-    //     setCoordsExist(true);
-    //     dispatch(setUserGeolocationAction(coords));
-    //   },
-    //   GeolocationPositionError => {
-    //     setIsLoading(false);
-    //     if (GeolocationPositionError.code === 1) {
-    //       setGeoAuthorized(false);
-    //     }
-    //   },
-    // );
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        setIsLoading(false);
+        setGeoAuthorized(true);
+        const newCoords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        dispatch(setUserGeolocationAction(newCoords));
+        setCoordsExist(true);
+      },
+      GeolocationPositionError => {
+        setGeoAuthorized(false);
+        setIsLoading(false);
+      },
+    );
 
     // /* geolocation IS NOT available */
     // let countries = '';
@@ -128,13 +77,7 @@ const LandingPageContainer: React.FC<LandingPageProps> = () => {
   return (
     <>
       {isLoading && <Overlay id="overlay" />}
-      {showIFrame && (
-        <IF
-          ref={ref => addEVT(ref)}
-          title="Geolocation"
-          src={`/dummygeo.html?w=${Math.random() * 10000}`}
-        />
-      )}
+
       {(geolocationAvailabe === undefined || geolocationAvailabe === true) &&
         geolocationAuthorized !== false && (
           <LandingPage

@@ -1,8 +1,8 @@
 import { Button, Typography } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { AppState } from 'src/store';
-import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import geoarrow from '../../assets/geoarrow.svg';
@@ -53,6 +53,8 @@ const LandingPage: React.FC<LandingPageProps> = ({
 }): React.ReactElement => {
   const { t } = useTranslation();
   const coords = useSelector((state: AppState) => state.user.coords);
+
+  console.log(coords);
 
   return (
     <StyledIntro>
