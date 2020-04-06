@@ -1,5 +1,7 @@
 import { Button, Typography } from 'antd';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { AppState } from 'src/store';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
@@ -41,44 +43,46 @@ interface Coords {
 }
 
 interface LandingPageProps {
-  coords: Coords;
   coordsExist: boolean;
   onGetCoords: Function;
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({
-  coords,
   coordsExist,
   onGetCoords,
 }): React.ReactElement => {
   const { t } = useTranslation();
+  const coords = useSelector((state: AppState) => state.user.coords);
 
   return (
     <StyledIntro>
       <Logo src={logo} alt="logo" />
       <StyledTitle>{t('landingpage.title')}</StyledTitle>
       <TitleWithAddon level={2}>{t('landingpage.sub_title')}</TitleWithAddon>
-      <Info>
-        {t('landingpage.info')
-          .split('\n')
-          .map((item, key) => (
-            <p key={key}>{item}</p>
-          ))}
-      </Info>
       {!coordsExist && (
-        <Button
-          type="primary"
-          onClick={() => onGetCoords()}
-          icon={
-            <img
-              src={geoarrow}
-              style={{ height: 16, width: 16, marginRight: 10 }}
-              alt="geolocation arrow"
-            />
-          }
-        >
-          {t('landingpage.buttonDetectGeo')}
-        </Button>
+        <>
+          <Info>
+            {t('landingpage.info')
+              .split('\n')
+              .map((item, key) => (
+                <p key={key}>{item}</p>
+              ))}
+          </Info>
+
+          <Button
+            type="primary"
+            onClick={() => onGetCoords()}
+            icon={
+              <img
+                src={geoarrow}
+                style={{ height: 16, width: 16, marginRight: 10 }}
+                alt="geolocation arrow"
+              />
+            }
+          >
+            {t('landingpage.buttonDetectGeo')}
+          </Button>
+        </>
       )}
       {coordsExist && coords !== undefined && <p>{coords.lat}</p>}
     </StyledIntro>
