@@ -17,11 +17,8 @@ const initialState: UserState = {
 
 export default createReducer<UserState>(
   {
-    [SETGEOLOCATION]: (
-      state: UserState,
-      { payload }: { payload: { coords: Coords } },
-    ) => {
-      state.coords = payload.coords;
+    [SETGEOLOCATION]: (state: UserState, { payload }: { payload: Coords }) => {
+      state.coords = payload;
     },
   },
   initialState,

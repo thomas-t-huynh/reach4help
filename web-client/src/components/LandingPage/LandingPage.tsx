@@ -54,8 +54,6 @@ const LandingPage: React.FC<LandingPageProps> = ({
   const { t } = useTranslation();
   const coords = useSelector((state: AppState) => state.user.coords);
 
-  console.log(coords);
-
   return (
     <StyledIntro>
       <Logo src={logo} alt="logo" />
@@ -86,7 +84,11 @@ const LandingPage: React.FC<LandingPageProps> = ({
           </Button>
         </>
       )}
-      {coordsExist && coords !== undefined && <p>{coords.lat}</p>}
+      {coordsExist && coords !== undefined && (
+        <p>
+          {coords.lat},{coords.lng}
+        </p>
+      )}
     </StyledIntro>
   );
 };
