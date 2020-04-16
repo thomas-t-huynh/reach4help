@@ -5,11 +5,12 @@ import AddInstructions from './components/add-instructions';
 import { FilterMutator } from './components/filters';
 import Footer from './components/footer';
 import Header from './components/header';
+import { TranslateMutator } from './components/languages';
 import Map, { NextResults } from './components/map';
 import MapLoader from './components/map-loader';
 import Results from './components/results';
 import Search from './components/search';
-import { Filter } from './data';
+import { Filter, Translate } from './data';
 import { MarkerInfo } from './data/markers';
 import styled, {
   CLS_SCREEN_LG_ONLY,
@@ -30,6 +31,7 @@ interface State {
   searchInput: HTMLInputElement | null;
   addInstructionsOpen: boolean;
   fullScreen: boolean;
+  translate: Translate;
   /**
    * * open: (default) the results are open
    * * closed: the results are closed
@@ -50,6 +52,7 @@ class App extends React.Component<Props, State> {
       addInstructionsOpen: false,
       fullScreen: false,
       resultsMode: 'open',
+      translate: {},
     };
   }
 
@@ -112,6 +115,12 @@ class App extends React.Component<Props, State> {
     }));
   };
 
+  private setTranslate = (mutator: TranslateMutator) => {
+    this.setState(state => ({
+      translate: mutator(state.translate),
+    }));
+  };
+
   public render() {
     const { className } = this.props;
     const {
@@ -123,6 +132,7 @@ class App extends React.Component<Props, State> {
       addInstructionsOpen,
       fullScreen,
       resultsMode,
+      translate,
     } = this.state;
     const effectiveResultsMode =
       resultsMode === 'open-auto' ? 'open' : resultsMode;
@@ -130,7 +140,9 @@ class App extends React.Component<Props, State> {
       <div className={className + (fullScreen ? ' fullscreen' : '')}>
         <Header
           filter={filter}
+          translate={translate}
           updateFilter={this.setFilter}
+          updateTranslate={this.setTranslate}
           setAddInstructionsOpen={this.setAddInstructionsOpen}
           fullScreen={fullScreen}
           toggleFullscreen={this.toggleFullscreen}
