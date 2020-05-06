@@ -1,5 +1,6 @@
 import { MARKER_COLLECTION_ID } from '@reach4help/model/lib/markers';
 import * as firebase from 'firebase/app';
+import { MARKER_COLLECTION_ID } from '@reach4help/model/lib/markers';
 
 import 'firebase/firestore';
 
