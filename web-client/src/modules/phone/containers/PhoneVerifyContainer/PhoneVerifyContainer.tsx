@@ -48,7 +48,7 @@ const PhoneVerifyContainer: React.FC = () => {
       <Redirect
         to={{
           pathname: PhoneEntryLocation.path,
-          state: { redirectBack: redirectBack || location.pathname },
+          state: { redirectBack: redirectBack || '/' },
         }}
       />
     );

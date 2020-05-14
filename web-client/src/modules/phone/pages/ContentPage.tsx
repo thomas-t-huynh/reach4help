@@ -31,7 +31,7 @@ const ContentPage = (): ReactElement => {
       <Redirect
         to={{
           pathname: LoginLocation.path,
-          state: { redirectBack: redirectBack || location.pathname },
+          state: { redirectBack: redirectBack || '/' },
         }}
       />
     );
@@ -41,7 +41,7 @@ const ContentPage = (): ReactElement => {
       <Redirect
         to={{
           pathname: PersonalDataLocation.path,
-          state: { redirectBack: redirectBack || location.pathname },
+          state: { redirectBack: redirectBack || '/' },
         }}
       />
     );
