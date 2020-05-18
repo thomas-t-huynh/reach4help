@@ -40,8 +40,9 @@ const TitleWithAddon: React.FC<TitleWithAddonProps> = ({
   children,
   level,
   alignAddon,
+  className,
 }): React.ReactElement => (
-  <TitleWrapper>
+  <TitleWrapper className={className}>
     {/* 
     There is a bug with styled-components regarding camelCase props. I will not try to workaround,
     and wait until it's fixed 
@@ -57,6 +58,7 @@ interface TitleWithAddonProps {
   level: 1 | 2 | 3 | 4;
   // REVIEW: I need help defining this type
   alignAddon?: string;
+  className?: string;
 }
 
 export default TitleWithAddon;

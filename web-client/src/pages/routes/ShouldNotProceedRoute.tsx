@@ -18,9 +18,9 @@ import { COLORS } from '../../theme/colors';
 
 const { Text } = Typography;
 
-// not sure why this isn't working
 const Title = styled(TitleWithAddon)`
-  padding: 20px 0;
+  padding: 10px 0 1px 0;
+  margin-bottom: 20px;
 `;
 
 const CloudBackground = styled.img`
