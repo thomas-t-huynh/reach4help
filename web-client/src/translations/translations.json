@@ -85,6 +85,12 @@
         "cav": "Volunteer",
         "cav_wait": "WAITING FOR VOLUNTEER",
         "address": "Delivery Address"
+      },
+      "shouldNotProceed": {
+        "title": "Thank You For Signing Up",
+        "info": "We will notify you early June when Reach4Help is available! We appreciate your willingness to help the most vulnerable and affected during these hard times. Stay Safe.",
+        "remember": "Follow Us in the Meantime",
+        "remember_info": "Once a volunteer offers to help, you must accept their help in order for them to see your contact information."
       }
     }
   },

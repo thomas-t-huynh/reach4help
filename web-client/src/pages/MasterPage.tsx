@@ -18,6 +18,7 @@ import { OpenRequestsLocation } from 'src/modules/requests/pages/routes/OpenRequ
 import modules from '../modules';
 import NotFoundRoute from './routes/NotFoundRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
+import ShouldNotProceedRoute from './routes/ShouldNotProceedRoute';
 
 const MasterPage = (): ReactElement => {
   const profileState = useSelector(
@@ -109,9 +110,12 @@ const MasterPage = (): ReactElement => {
       <Switch>
         {renderModules()}
         {/* TEMPORARY - Redirect to new request so that people don't see a 404 page */}
-        <Route path="/" exact>
-          <Redirect to={OpenRequestsLocation.path} />
-        </Route>
+        <ProtectedRoute
+          key="shouldnotProceed"
+          path="/"
+          component={ShouldNotProceedRoute}
+        />
+        <Redirect to={OpenRequestsLocation.path} />
         <Route path="*" component={NotFoundRoute} />
       </Switch>
     </Router>
