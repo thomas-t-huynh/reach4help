@@ -1,6 +1,7 @@
 import { Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import EmailIcon from 'src/assets/EmailIcon.svg';
 import FacebookIcon from 'src/assets/FacebookIcon.svg';
 import InstagramIcon from 'src/assets/InstagramIcon.svg';
 import LinkedinIcon from 'src/assets/LinkedinIcon.svg';
@@ -17,6 +18,21 @@ import { COLORS } from '../../theme/colors';
 
 const { Text } = Typography;
 
+// not sure why this isn't working
+const Title = styled(TitleWithAddon)`
+  padding: 20px 0;
+`;
+
+const CloudBackground = styled.img`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  opacity: 0.1;
+  width: 100%;
+  z-index: 0;
+  pointer-events: none;
+`;
+
 const SubtitleP = styled(Text)`
   font-size: 1.1em;
   font-weight: 600;
@@ -28,10 +44,10 @@ const OrangeP = styled(Text)`
 `;
 
 const Footer = styled.div`
-  background-image: url(${ShouldNotProceedCloud});
   padding: 1em 1em;
   text-align: center;
   margin: 0 -24px -24px;
+  z-index: 1;
 `;
 
 const RememberInfoP = styled.div`
@@ -40,6 +56,10 @@ const RememberInfoP = styled.div`
 
 const SocialMediaIcon = styled.img`
   padding: 15px;
+  opacity: 0.75;
+  :hover {
+    opacity: 1;
+  }
 `;
 
 const PersonalDataRoute: React.FC = () => {
@@ -48,7 +68,8 @@ const PersonalDataRoute: React.FC = () => {
   return (
     <GradientBackground>
       <CenteredCard>
-        <TitleWithAddon level={1}>{t('shouldNotProceed.title')}</TitleWithAddon>
+        <CloudBackground src={ShouldNotProceedCloud} alt="cloud" />
+        <Title level={1}>{t('shouldNotProceed.title')}</Title>
         <SubtitleP>{t('shouldNotProceed.info')}</SubtitleP>
         <LoadingIndicator
           style={{ height: '50vh' }}
@@ -57,10 +78,41 @@ const PersonalDataRoute: React.FC = () => {
         <Footer>
           <OrangeP>{t('shouldNotProceed.remember')}</OrangeP>
           <RememberInfoP>
-            <SocialMediaIcon src={LinkedinIcon} />
-            <SocialMediaIcon src={FacebookIcon} />
-            <SocialMediaIcon src={TwitterIcon} />
-            <SocialMediaIcon src={InstagramIcon} />
+            <a
+              href="https://www.linkedin.com/company/reach4help-org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialMediaIcon src={LinkedinIcon} />
+            </a>
+            <a
+              href="https://www.facebook.com/Reach4HelpOrg/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialMediaIcon src={FacebookIcon} />
+            </a>
+            <a
+              href="https://twitter.com/reach4helporg"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialMediaIcon src={TwitterIcon} />
+            </a>
+            <a
+              href="https://www.instagram.com/reach4help/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialMediaIcon src={InstagramIcon} />
+            </a>
+            <a
+              href="mailto:info@reach4help.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialMediaIcon src={EmailIcon} />
+            </a>
           </RememberInfoP>
         </Footer>
       </CenteredCard>
