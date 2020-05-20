@@ -48,7 +48,7 @@ const PhoneEntryContainer: React.FC = () => {
   };
 
   const errorMessage = useMemo(
-    () => (error && error.message ? error.message : null),
+    () => (error && error.message ? `Your number is ${error.message}` : null),
     [error],
   );
   const profilePhoto = useMemo(
@@ -64,6 +64,7 @@ const PhoneEntryContainer: React.FC = () => {
       </TitleWithAddon>
       <PhoneNumberEntryForm
         loading={loading}
+        reset={error instanceof Error}
         handleFormSubmit={handleEntrySubmit}
       />
     </IntroWrapper>

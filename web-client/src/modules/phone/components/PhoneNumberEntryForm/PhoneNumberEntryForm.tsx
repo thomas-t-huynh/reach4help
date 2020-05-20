@@ -28,15 +28,18 @@ const StyledButton = styled(Button)`
 interface PhoneNumberEntryFormProps {
   handleFormSubmit: Function;
   loading: boolean;
+  reset: boolean;
 }
 
 const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
   handleFormSubmit,
   loading,
+  reset,
 }): React.ReactElement => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [recaptchaVerifier, setRecaptchaVerifier] = useState({});
+  const [resetState, setResetState] = useState(false);
 
   useEffect(() => {
     const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
@@ -44,6 +47,30 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
     });
     setRecaptchaVerifier(appVerifier);
   }, []);
+
+  useEffect(() => {
+    if (reset) {
+      setRecaptchaVerifier({});
+      setResetState(true);
+    }
+  }, [reset]);
+
+  useEffect(() => {
+    if (resetState) {
+      setResetState(false);
+      form.resetFields();
+    } else if (reset) {
+      const appVerifier = new firebase.auth.RecaptchaVerifier('submitButton', {
+        size: 'invisible',
+      });
+      setRecaptchaVerifier(appVerifier);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetState]);
+
+  if (resetState) {
+    return <></>;
+  }
 
   return (
     <Form
