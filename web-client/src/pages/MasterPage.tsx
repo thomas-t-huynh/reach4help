@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout/DashboardLayout';
 import { signOutCurrentUserAction } from 'src/ducks/auth/actions';
-import { updateUserPrivilegedInformation } from 'src/ducks/profile/actions';
 import { ProfileState } from 'src/ducks/profile/types';
 import { changeModal, setRequest } from 'src/ducks/requests/actions';
 import { RequestState } from 'src/ducks/requests/types';
@@ -26,11 +25,7 @@ const MasterPage = (): ReactElement => {
 
   const dispatch = useDispatch();
 
-  const newRequestSubmitHandler = (
-    title: string,
-    body: string,
-    sendNotifications: boolean,
-  ) => {
+  const newRequestSubmitHandler = (title: string, body: string) => {
     if (
       profileState.profile &&
       profileState.userRef &&
@@ -44,17 +39,6 @@ const MasterPage = (): ReactElement => {
           pinUserSnapshot: profileState.profile.toObject() as IUser,
           latLng: profileState.privilegedInformation.address.coords,
         }),
-      );
-    }
-
-    if (profileState.uid && profileState.privilegedInformation) {
-      profileState.privilegedInformation.sendNotifications =
-        sendNotifications === true;
-      dispatch(
-        updateUserPrivilegedInformation(
-          profileState.uid,
-          profileState.privilegedInformation,
-        ),
       );
     }
   };

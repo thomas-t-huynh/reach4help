@@ -71,6 +71,7 @@ const RoleInfo: React.FC<RoleInfoProps> = ({
                 type="default"
                 shape="round"
                 icon={<AlertTwoTone twoToneColor="#FF7B02" />}
+                disabled
               >
                 {t('roleinfo.c2a_pin')}
               </Button>
