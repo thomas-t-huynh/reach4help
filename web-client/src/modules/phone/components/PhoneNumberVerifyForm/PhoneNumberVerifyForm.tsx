@@ -1,7 +1,6 @@
 import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const { Text } = Typography;
@@ -65,7 +64,7 @@ const PhoneNumberVerifyForm: React.FC<PhoneNumberVerifyFormProps> = ({
       </Form.Item>
       <Info>
         {t('verificationCode.info')}
-        <Link to="/phone">{t('verificationCode.resend')}</Link>
+        <a href="/phone/entry">{t('verificationCode.resend')}</a>
       </Info>
       <Form.Item>
         <StyledButton loading={loading} htmlType="submit" type="primary">
