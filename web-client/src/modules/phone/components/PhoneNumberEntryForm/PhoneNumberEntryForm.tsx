@@ -82,7 +82,10 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
       layout="vertical"
       form={form}
       onFinish={({ phoneNumber }) => {
-        handleFormSubmit({ phoneNumber }, recaptchaVerifier);
+        handleFormSubmit(
+          { phoneNumber: phoneNumber.replace(/\s/g, '') },
+          recaptchaVerifier,
+        );
       }}
     >
       <Description>{t('phoneNumber.sub_title')}</Description>
@@ -94,9 +97,22 @@ const PhoneNumberEntryForm: React.FC<PhoneNumberEntryFormProps> = ({
             required: true,
             message: t('phoneNumber.error_message'),
           },
+          {
+            validator: (_, value) =>
+              value.length < 11
+                ? Promise.resolve()
+                : // eslint-disable-next-line no-useless-escape
+                /[~`!#$%\^&*=\-\[\]\\';\s,/(){}|\\":<>\?]/g.test(value)
+                ? Promise.reject(t('phoneNumber.phone_valid'))
+                : Promise.resolve(),
+          },
+          {
+            min: 11,
+            message: t('phoneNumber.phone_valid'),
+          },
         ]}
       >
-        <StyledInput placeholder="+0 000 000 000 000" maxLength={14} />
+        <StyledInput placeholder="+0000000000000" maxLength={14} />
       </Form.Item>
       <Info>{t('phoneNumber.info')}</Info>
       <Form.Item>
